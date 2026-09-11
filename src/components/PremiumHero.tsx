@@ -7,24 +7,24 @@ export default function PremiumHero() {
   const hour = now.getHours();
   
   // Determine greeting based on time
-  let greeting = 'Good evening';
+  let greeting = 'Good evening, Abhishek';
   let Icon = Moon;
   let iconColor = 'var(--color-neon-primary)';
   
   if (hour >= 5 && hour < 12) {
-    greeting = 'Good morning';
+    greeting = 'Good morning, Abhishek';
     Icon = Sun;
     iconColor = 'var(--color-neon-tertiary)';
   } else if (hour >= 12 && hour < 18) {
-    greeting = 'Good afternoon';
+    greeting = 'Good afternoon, Abhishek';
     Icon = Sun;
     iconColor = 'var(--color-neon-tertiary)';
   } else if (hour >= 18 && hour < 22) {
-    greeting = 'Good evening';
+    greeting = 'Good evening, Abhishek';
     Icon = CloudMoon;
     iconColor = 'var(--color-neon-secondary)';
   } else {
-    greeting = 'Late night';
+    greeting = 'Late night, Abhishek';
     Icon = Moon;
     iconColor = 'var(--color-neon-primary)';
   }

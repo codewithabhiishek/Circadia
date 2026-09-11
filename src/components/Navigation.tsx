@@ -94,7 +94,7 @@ export default function Navigation({ page, setPage, layout }: NavigationProps) {
         <motion.button
           key={item.id}
           onClick={() => setPage(item.id)}
-          className="flex flex-col items-center gap-0.5 px-2 py-1.5 min-w-[50px] sm:min-w-[60px] border-2 transition-all duration-200"
+          className="flex flex-col items-center justify-center gap-0.5 px-2 py-1.5 min-w-[48px] sm:min-w-[62px] border-2 transition-all duration-200"
           style={{
             borderColor: page === item.id ? 'var(--color-border)' : 'transparent',
             backgroundColor: page === item.id ? 'var(--color-bg-card)' : 'transparent',
@@ -104,19 +104,19 @@ export default function Navigation({ page, setPage, layout }: NavigationProps) {
           }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.05 }}
+          transition={{ delay: index * 0.04 }}
         >
-          <span style={{ opacity: page === item.id ? 1 : 0.5 }}>{item.icon}</span>
-          <span className="text-[9px] sm:text-[10px] font-bold uppercase">{item.label}</span>
+          <span style={{ opacity: page === item.id ? 1 : 0.6 }}>{item.icon}</span>
+          <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-tight">{item.label}</span>
         </motion.button>
       ))}
 
       {/* Theme toggle for mobile */}
       <motion.button
         onClick={toggleTheme}
-        className="flex flex-col items-center gap-0.5 px-2 py-1.5 min-w-[50px] sm:min-w-[60px] border-2 transition-all duration-200"
+        className="flex flex-col items-center justify-center gap-0.5 px-2 py-1.5 min-w-[48px] sm:min-w-[62px] border-2 transition-all duration-200"
         style={{
           borderColor: 'var(--color-border)',
           backgroundColor: 'var(--color-bg-card)',
@@ -127,8 +127,8 @@ export default function Navigation({ page, setPage, layout }: NavigationProps) {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
-        {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
-        <span className="text-[9px] sm:text-[10px] font-bold uppercase">MODE</span>
+        {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+        <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-tight">MODE</span>
       </motion.button>
     </nav>
   );

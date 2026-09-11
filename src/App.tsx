@@ -72,8 +72,8 @@ export default function App() {
 
         {/* Mobile: content + bottom nav */}
         <div className="flex flex-col flex-1 md:hidden relative z-10">
-          <main className="flex-1 overflow-y-auto overflow-x-hidden pb-16 sm:pb-20">
-            <div className="max-w-lg mx-auto px-3 sm:px-4 py-4 sm:py-6">
+          <main className="flex-1 overflow-y-auto overflow-x-hidden pt-[env(safe-area-inset-top)] pb-[calc(4.5rem+env(safe-area-inset-bottom))]">
+            <div className="max-w-lg mx-auto px-3 sm:px-4 py-3 sm:py-6">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={page}

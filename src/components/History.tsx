@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { v4 as uuid } from 'uuid';
-import { ChevronLeft, ChevronRight, Trash2, Edit3, X, Check } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Trash2, Edit3, X, Check, Clock, Moon, Sun } from 'lucide-react';
 import { SleepEntry, Nap } from '../types';
 import {
   formatDate,
@@ -203,32 +203,68 @@ export default function History({ entries, onSave, onDelete, onRefresh }: Histor
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-[10px] sm:text-xs font-bold mb-1.5 sm:mb-2 uppercase" style={{ color: 'var(--color-text-secondary)', fontFamily: 'var(--font-mono)' }}>
-                  Fell asleep
-                </label>
-                <input
-                  type="time"
-                  value={editSleepHour && editSleepMinute ? `${editSleepHour}:${editSleepMinute}` : ''}
-                  onChange={(e) => {
-                    const [h, m] = e.target.value.split(':');
-                    setEditSleepHour(h || '');
-                    setEditSleepMinute(m || '');
-                  }}
-                />
+                <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+                  <label className="flex items-center gap-1.5 text-[10px] sm:text-xs font-bold uppercase" style={{ color: 'var(--color-text-secondary)', fontFamily: 'var(--font-mono)' }}>
+                    <Moon size={13} style={{ color: 'var(--color-neon-primary)' }} />
+                    Fell asleep
+                  </label>
+                  <span className="text-[9px] font-mono font-bold uppercase" style={{ color: editSleepHour && editSleepMinute ? 'var(--color-neon-primary)' : 'var(--color-text-tertiary)' }}>
+                    {editSleepHour && editSleepMinute ? '✓ SET' : '// TAP TO SET'}
+                  </span>
+                </div>
+                <div className="relative">
+                  <input
+                    type="time"
+                    value={editSleepHour && editSleepMinute ? `${editSleepHour}:${editSleepMinute}` : ''}
+                    onChange={(e) => {
+                      const [h, m] = e.target.value.split(':');
+                      setEditSleepHour(h || '');
+                      setEditSleepMinute(m || '');
+                    }}
+                    className="cursor-pointer"
+                  />
+                  {!editSleepHour && !editSleepMinute && (
+                    <div className="absolute inset-0 pointer-events-none flex items-center justify-between px-3 text-xs font-mono font-bold" style={{ color: 'var(--color-text-tertiary)' }}>
+                      <span className="flex items-center gap-1.5">
+                        <Clock size={14} style={{ color: 'var(--color-neon-primary)' }} />
+                        --:--
+                      </span>
+                      <span className="text-[10px] uppercase font-bold" style={{ color: 'var(--color-neon-primary)' }}>SELECT ⏱</span>
+                    </div>
+                  )}
+                </div>
               </div>
               <div>
-                <label className="block text-[10px] sm:text-xs font-bold mb-1.5 sm:mb-2 uppercase" style={{ color: 'var(--color-text-secondary)', fontFamily: 'var(--font-mono)' }}>
-                  Woke up
-                </label>
-                <input
-                  type="time"
-                  value={editWakeHour && editWakeMinute ? `${editWakeHour}:${editWakeMinute}` : ''}
-                  onChange={(e) => {
-                    const [h, m] = e.target.value.split(':');
-                    setEditWakeHour(h || '');
-                    setEditWakeMinute(m || '');
-                  }}
-                />
+                <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+                  <label className="flex items-center gap-1.5 text-[10px] sm:text-xs font-bold uppercase" style={{ color: 'var(--color-text-secondary)', fontFamily: 'var(--font-mono)' }}>
+                    <Sun size={13} style={{ color: 'var(--color-neon-tertiary)' }} />
+                    Woke up
+                  </label>
+                  <span className="text-[9px] font-mono font-bold uppercase" style={{ color: editWakeHour && editWakeMinute ? 'var(--color-neon-tertiary)' : 'var(--color-text-tertiary)' }}>
+                    {editWakeHour && editWakeMinute ? '✓ SET' : '// TAP TO SET'}
+                  </span>
+                </div>
+                <div className="relative">
+                  <input
+                    type="time"
+                    value={editWakeHour && editWakeMinute ? `${editWakeHour}:${editWakeMinute}` : ''}
+                    onChange={(e) => {
+                      const [h, m] = e.target.value.split(':');
+                      setEditWakeHour(h || '');
+                      setEditWakeMinute(m || '');
+                    }}
+                    className="cursor-pointer"
+                  />
+                  {!editWakeHour && !editWakeMinute && (
+                    <div className="absolute inset-0 pointer-events-none flex items-center justify-between px-3 text-xs font-mono font-bold" style={{ color: 'var(--color-text-tertiary)' }}>
+                      <span className="flex items-center gap-1.5">
+                        <Clock size={14} style={{ color: 'var(--color-neon-tertiary)' }} />
+                        --:--
+                      </span>
+                      <span className="text-[10px] uppercase font-bold" style={{ color: 'var(--color-neon-tertiary)' }}>SELECT ⏱</span>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 

@@ -104,21 +104,50 @@ body::before {
   background: var(--color-neon-primary);
 }
 
-/* Time input styling - Brutalist */
+/* Time input styling - Brutalist & iOS Safari Friendly */
 input[type="time"] {
   font-family: var(--font-mono);
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 600;
   color: var(--color-text);
   background: var(--color-bg-card);
   border: 2px solid var(--color-border);
   border-radius: 0;
-  padding: 12px 16px;
+  padding: 12px 14px;
   width: 100%;
+  min-height: 48px;
+  line-height: 1.5;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  appearance: none;
-  -webkit-appearance: none;
   box-shadow: 4px 4px 0 var(--color-border);
+  color-scheme: dark;
+}
+
+[data-theme="light"] input[type="time"] {
+  color-scheme: light;
+}
+
+/* Ensure iOS Safari and WebKit render time text with high contrast */
+input[type="time"]::-webkit-datetime-edit,
+input[type="time"]::-webkit-datetime-edit-fields-wrapper,
+input[type="time"]::-webkit-datetime-edit-text,
+input[type="time"]::-webkit-datetime-edit-hour-field,
+input[type="time"]::-webkit-datetime-edit-minute-field,
+input[type="time"]::-webkit-datetime-edit-ampm-field {
+  color: var(--color-text);
+  padding: 0 1px;
+}
+
+/* Make clock indicator visible and styled in WebKit */
+input[type="time"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(0.8) drop-shadow(0 0 4px var(--color-neon-primary));
+  opacity: 0.9;
+  padding: 4px;
+}
+
+[data-theme="light"] input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: none;
+  opacity: 0.7;
 }
 
 [data-theme="dark"] input[type="time"] {

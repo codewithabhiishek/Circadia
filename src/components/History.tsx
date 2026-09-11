@@ -63,12 +63,18 @@ export default function History({ entries, onSave, onDelete, onRefresh }: Histor
     if (!editingEntry || !editSleepHour || !editWakeHour) return;
 
     const dateStr = editingEntry.date;
+    const sleepHourNum = parseInt(editSleepHour, 10);
+    const sleepMinuteNum = parseInt(editSleepMinute || '0', 10);
+    const wakeHourNum = parseInt(editWakeHour, 10);
+    const wakeMinuteNum = parseInt(editWakeMinute || '0', 10);
+
     const sleepDate = new Date(dateStr + 'T00:00:00');
-    sleepDate.setHours(parseInt(editSleepHour), parseInt(editSleepMinute), 0, 0);
-    
+    sleepDate.setHours(sleepHourNum, sleepMinuteNum, 0, 0);
+
     const wakeDate = new Date(dateStr + 'T00:00:00');
-    wakeDate.setHours(parseInt(editWakeHour), parseInt(editWakeMinute), 0, 0);
-    
+    wakeDate.setHours(wakeHourNum, wakeMinuteNum, 0, 0);
+
+    // Cross-midnight detection: if wake time is at or before sleep time, wake happened next day
     if (wakeDate <= sleepDate) {
       wakeDate.setDate(wakeDate.getDate() + 1);
     }
@@ -202,7 +208,7 @@ export default function History({ entries, onSave, onDelete, onRefresh }: Histor
                 </label>
                 <input
                   type="time"
-                  value={`${editSleepHour}:${editSleepMinute}`}
+                  value={editSleepHour && editSleepMinute ? `${editSleepHour}:${editSleepMinute}` : ''}
                   onChange={(e) => {
                     const [h, m] = e.target.value.split(':');
                     setEditSleepHour(h || '');
@@ -216,7 +222,7 @@ export default function History({ entries, onSave, onDelete, onRefresh }: Histor
                 </label>
                 <input
                   type="time"
-                  value={`${editWakeHour}:${editWakeMinute}`}
+                  value={editWakeHour && editWakeMinute ? `${editWakeHour}:${editWakeMinute}` : ''}
                   onChange={(e) => {
                     const [h, m] = e.target.value.split(':');
                     setEditWakeHour(h || '');

@@ -47,6 +47,12 @@ export default function Today({ entry, onSave }: TodayProps) {
       setWakeHour(wakeTime.hours.toString().padStart(2, '0'));
       setWakeMinute(wakeTime.minutes.toString().padStart(2, '0'));
       setNaps(entry.naps || []);
+    } else {
+      setSleepHour('');
+      setSleepMinute('');
+      setWakeHour('');
+      setWakeMinute('');
+      setNaps([]);
     }
   }, [entry]);
 

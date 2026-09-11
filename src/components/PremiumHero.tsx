@@ -5,26 +5,28 @@ import { format } from 'date-fns';
 export default function PremiumHero() {
   const now = new Date();
   const hour = now.getHours();
+  const savedName = typeof window !== 'undefined' ? localStorage.getItem('circadia-user-name') : null;
+  const nameSuffix = savedName && savedName.trim() ? `, ${savedName.trim()}` : '';
   
   // Determine greeting based on time
-  let greeting = 'Good evening, Abhishek';
+  let greeting = `Good evening${nameSuffix}`;
   let Icon = Moon;
   let iconColor = 'var(--color-neon-primary)';
   
   if (hour >= 5 && hour < 12) {
-    greeting = 'Good morning, Abhishek';
+    greeting = `Good morning${nameSuffix}`;
     Icon = Sun;
     iconColor = 'var(--color-neon-tertiary)';
   } else if (hour >= 12 && hour < 18) {
-    greeting = 'Good afternoon, Abhishek';
+    greeting = `Good afternoon${nameSuffix}`;
     Icon = Sun;
     iconColor = 'var(--color-neon-tertiary)';
   } else if (hour >= 18 && hour < 22) {
-    greeting = 'Good evening, Abhishek';
+    greeting = `Good evening${nameSuffix}`;
     Icon = CloudMoon;
     iconColor = 'var(--color-neon-secondary)';
   } else {
-    greeting = 'Late night, Abhishek';
+    greeting = `Late night${nameSuffix}`;
     Icon = Moon;
     iconColor = 'var(--color-neon-primary)';
   }

@@ -1,6 +1,6 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Download, Upload, Trash2, Shield } from 'lucide-react';
+import { Download, Upload, Trash2, Shield, User, Check } from 'lucide-react';
 import { exportData, importData, clearAllEntries } from '../db';
 
 interface SettingsProps {
@@ -8,9 +8,26 @@ interface SettingsProps {
 }
 
 export default function Settings({ onRefresh }: SettingsProps) {
+  const [userName, setUserName] = useState('');
+  const [nameSaved, setNameSaved] = useState(false);
   const [message, setMessage] = useState('');
   const [showClearConfirm, setShowClearConfirm] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('circadia-user-name');
+    if (saved) setUserName(saved);
+  }, []);
+
+  function handleSaveName() {
+    if (userName.trim()) {
+      localStorage.setItem('circadia-user-name', userName.trim());
+    } else {
+      localStorage.removeItem('circadia-user-name');
+    }
+    setNameSaved(true);
+    setTimeout(() => setNameSaved(false), 2000);
+  }
 
   async function handleExport() {
     const data = await exportData();
@@ -103,13 +120,64 @@ export default function Settings({ onRefresh }: SettingsProps) {
           </motion.div>
           <div className="min-w-0">
             <h3 className="text-xs sm:text-sm font-bold uppercase" style={{ color: 'var(--color-text)', fontFamily: 'var(--font-mono)' }}>
-              PRIVACY FIRST
+              100% LOCAL-FIRST & DEVICE ISOLATED
             </h3>
             <p className="text-[10px] sm:text-xs mt-2 leading-relaxed font-mono font-bold" style={{ color: 'var(--color-text-secondary)' }}>
-              → All your data is stored locally on this device. Nothing is sent to any server.
-              No analytics, no tracking, no advertising. Your sleep data belongs to you.
+              → All data lives strictly in your browser's private IndexedDB storage.
+              When someone else visits your link or clones this repository, they see a completely blank, private journal.
+              Zero cloud telemetry, zero sync, zero leaks.
             </p>
           </div>
+        </div>
+      </motion.section>
+
+      {/* Profile Section */}
+      <motion.section variants={itemVariants}>
+        <div className="mb-2 sm:mb-3">
+          <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--color-text-tertiary)', fontFamily: 'var(--font-mono)' }}>
+            // PROFILE
+          </span>
+        </div>
+        <div className="border-2 p-4 sm:p-5" style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-bg-card)', boxShadow: 'var(--shadow-card)' }}>
+          <div className="flex items-center gap-2 mb-3">
+            <User size={16} style={{ color: 'var(--color-neon-primary)' }} />
+            <label className="text-xs font-bold uppercase font-mono" style={{ color: 'var(--color-text)' }}>
+              Display Name (Local Only)
+            </label>
+          </div>
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+              placeholder="e.g. Abhishek"
+              className="flex-1 px-3 py-2 text-xs font-mono border-2"
+              style={{
+                borderColor: 'var(--color-border)',
+                backgroundColor: 'var(--color-bg-subtle)',
+                color: 'var(--color-text)',
+              }}
+            />
+            <motion.button
+              onClick={handleSaveName}
+              className="px-4 py-2 border-2 text-xs font-bold uppercase flex items-center gap-1.5 transition-all duration-200"
+              style={{
+                borderColor: 'var(--color-border)',
+                backgroundColor: nameSaved ? 'var(--color-success)' : 'var(--color-neon-primary)',
+                color: '#000',
+                fontFamily: 'var(--font-mono)',
+                boxShadow: '2px 2px 0 var(--color-border)',
+              }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {nameSaved ? <Check size={14} /> : null}
+              {nameSaved ? 'SAVED' : 'SAVE'}
+            </motion.button>
+          </div>
+          <p className="text-[10px] font-mono mt-2" style={{ color: 'var(--color-text-tertiary)' }}>
+            // Used only to personalize the greeting on this device.
+          </p>
         </div>
       </motion.section>
 

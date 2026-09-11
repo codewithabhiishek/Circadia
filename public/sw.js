@@ -1,7 +1,9 @@
-const CACHE_NAME = 'sleep-journal-v1';
+const CACHE_NAME = 'sleep-tracker-v1';
 const ASSETS = [
   '/',
   '/index.html',
+  '/manifest.json',
+  '/icon.svg',
 ];
 
 self.addEventListener('install', (event) => {

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0f" />
+      <stop offset="50%" stop-color="#141324" />
+      <stop offset="100%" stop-color="#07070a" />
+    </linearGradient>
+    <linearGradient id="moonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f0ff" />
+      <stop offset="50%" stop-color="#7000ff" />
+      <stop offset="100%" stop-color="#ff007f" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Base background with rounded corners -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)" stroke="#00f0ff" stroke-width="4" stroke-opacity="0.3"/>
+
+  <!-- Glowing background aura -->
+  <circle cx="270" cy="245" r="140" fill="#00f0ff" opacity="0.12" filter="url(#glow)"/>
+  
+  <!-- Subtle star sparkles -->
+  <circle cx="150" cy="140" r="4" fill="#a3ff12" opacity="0.8" />
+  <circle cx="370" cy="130" r="5" fill="#00f0ff" opacity="0.9" />
+  <circle cx="130" cy="360" r="3.5" fill="#ff00ff" opacity="0.7" />
+  <circle cx="390" cy="380" r="4.5" fill="#a3ff12" opacity="0.8" />
+  <polygon points="360,190 364,198 372,202 364,206 360,214 356,206 348,202 356,198" fill="#ffffff" opacity="0.85" />
+  <polygon points="170,290 173,296 179,299 173,302 170,308 167,302 161,299 167,296" fill="#00f0ff" opacity="0.75" />
+
+  <!-- Crescent Moon Icon -->
+  <path d="M330 160 C260 160 205 215 205 285 C205 340 240 385 290 402 C200 405 130 330 130 240 C130 145 205 70 300 70 C312 70 324 71 335 74 C305 95 285 130 285 170 C285 210 310 245 345 258 C337 205 355 175 330 160 Z"
+        fill="url(#moonGrad)" filter="url(#glow)" />
+
+  <!-- Sleep ECG / Heartbeat line overlapping base of moon -->
+  <path d="M120 380 L190 380 L215 345 L235 415 L260 365 L275 390 L290 380 L400 380"
+        fill="none" stroke="#00f0ff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" filter="url(#glow)"/>
+</svg>

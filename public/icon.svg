@@ -1,40 +1,88 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
-    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0a0a0f" />
-      <stop offset="50%" stop-color="#141324" />
-      <stop offset="100%" stop-color="#07070a" />
+    <!-- Background Gradient -->
+    <linearGradient id="circadiaBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#07080d" />
+      <stop offset="50%" stop-color="#0d111a" />
+      <stop offset="100%" stop-color="#050608" />
     </linearGradient>
-    <linearGradient id="moonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+
+    <!-- Circadian Orbit Arc Gradient -->
+    <linearGradient id="orbitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#00f0ff" />
       <stop offset="50%" stop-color="#7000ff" />
-      <stop offset="100%" stop-color="#ff007f" />
+      <stop offset="100%" stop-color="#ff007a" />
     </linearGradient>
-    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="16" result="blur" />
-      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+
+    <!-- Glowing Moon Core -->
+    <linearGradient id="moonGrad" x1="20%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f0ff" />
+      <stop offset="40%" stop-color="#00b4d8" />
+      <stop offset="80%" stop-color="#6a00f4" />
+      <stop offset="100%" stop-color="#a3ff12" />
+    </linearGradient>
+
+    <!-- Intense Neon Glow Filter -->
+    <filter id="neonGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="12" result="blur1" />
+      <feGaussianBlur stdDeviation="24" result="blur2" />
+      <feMerge>
+        <feMergeNode in="blur2" />
+        <feMergeNode in="blur1" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
     </filter>
   </defs>
 
-  <!-- Base background with rounded corners -->
-  <rect width="512" height="512" rx="112" fill="url(#bgGrad)" stroke="#00f0ff" stroke-width="4" stroke-opacity="0.3"/>
+  <!-- App Rounded Container with Cyber Border -->
+  <rect width="512" height="512" rx="116" fill="url(#circadiaBg)" stroke="#00f0ff" stroke-width="4" stroke-opacity="0.45" />
 
-  <!-- Glowing background aura -->
-  <circle cx="270" cy="245" r="140" fill="#00f0ff" opacity="0.12" filter="url(#glow)"/>
-  
-  <!-- Subtle star sparkles -->
-  <circle cx="150" cy="140" r="4" fill="#a3ff12" opacity="0.8" />
-  <circle cx="370" cy="130" r="5" fill="#00f0ff" opacity="0.9" />
-  <circle cx="130" cy="360" r="3.5" fill="#ff00ff" opacity="0.7" />
-  <circle cx="390" cy="380" r="4.5" fill="#a3ff12" opacity="0.8" />
-  <polygon points="360,190 364,198 372,202 364,206 360,214 356,206 348,202 356,198" fill="#ffffff" opacity="0.85" />
-  <polygon points="170,290 173,296 179,299 173,302 170,308 167,302 161,299 167,296" fill="#00f0ff" opacity="0.75" />
+  <!-- Ambient Glow Core -->
+  <circle cx="256" cy="256" r="160" fill="#00f0ff" opacity="0.08" filter="url(#neonGlow)" />
+  <circle cx="256" cy="256" r="110" fill="#7000ff" opacity="0.12" filter="url(#neonGlow)" />
 
-  <!-- Crescent Moon Icon -->
-  <path d="M330 160 C260 160 205 215 205 285 C205 340 240 385 290 402 C200 405 130 330 130 240 C130 145 205 70 300 70 C312 70 324 71 335 74 C305 95 285 130 285 170 C285 210 310 245 345 258 C337 205 355 175 330 160 Z"
-        fill="url(#moonGrad)" filter="url(#glow)" />
+  <!-- Background Orbit / Circadian Track Rings -->
+  <circle cx="256" cy="256" r="190" fill="none" stroke="#00f0ff" stroke-width="2" stroke-opacity="0.18" stroke-dasharray="8 12" />
+  <circle cx="256" cy="256" r="148" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.1" />
 
-  <!-- Sleep ECG / Heartbeat line overlapping base of moon -->
-  <path d="M120 380 L190 380 L215 345 L235 415 L260 365 L275 390 L290 380 L400 380"
-        fill="none" stroke="#00f0ff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" filter="url(#glow)"/>
+  <!-- Circadian Dial Notches / Hours -->
+  <circle cx="256" cy="66" r="4" fill="#a3ff12" opacity="0.9" />
+  <circle cx="446" cy="256" r="4" fill="#00f0ff" opacity="0.9" />
+  <circle cx="256" cy="446" r="4" fill="#ff007a" opacity="0.9" />
+  <circle cx="66" cy="256" r="4" fill="#00f0ff" opacity="0.9" />
+
+  <!-- Deep Sci-Fi Star Accents -->
+  <circle cx="160" cy="140" r="3" fill="#a3ff12" opacity="0.8" />
+  <circle cx="370" cy="130" r="4" fill="#00f0ff" opacity="0.9" />
+  <circle cx="130" cy="370" r="3.5" fill="#ff007a" opacity="0.75" />
+  <polygon points="380,180 383,187 390,190 383,193 380,200 377,193 370,190 377,187" fill="#ffffff" opacity="0.85" />
+  <polygon points="135,280 138,285 143,288 138,291 135,296 132,291 127,288 132,285" fill="#00f0ff" opacity="0.75" />
+
+  <!-- Dynamic Circadian Outer Orbit Arc -->
+  <path d="M 120 256 A 136 136 0 1 1 392 256" fill="none" stroke="url(#orbitGrad)" stroke-width="7" stroke-linecap="round" filter="url(#neonGlow)" />
+  <circle cx="392" cy="256" r="6" fill="#ff007a" filter="url(#softGlow)" />
+
+  <!-- Bold Sculpted Crescent Moon -->
+  <path d="M 285 130 
+           C 200 130 145 195 145 272 
+           C 145 342 195 400 270 405 
+           C 180 400 120 325 120 250 
+           C 120 162 185 95 275 95 
+           C 290 95 304 98 318 103 
+           C 298 120 285 145 285 175 
+           C 285 218 318 254 360 258 
+           C 348 200 358 152 285 130 Z" 
+        fill="url(#moonGrad)" filter="url(#neonGlow)" />
+
+  <!-- Sleep Cycle Pulse / ECG Rhythm Line -->
+  <path d="M 110 375 L 180 375 L 205 340 L 225 410 L 250 360 L 265 385 L 280 375 L 402 375" 
+        fill="none" stroke="#00f0ff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" filter="url(#neonGlow)" />
 </svg>

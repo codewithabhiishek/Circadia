@@ -24,10 +24,10 @@ export default function Navigation({ page, setPage, layout }: NavigationProps) {
       <nav className="w-56 lg:w-64 border-r-2 flex flex-col py-4 lg:py-6 px-3 lg:px-4 shrink-0" style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-bg)' }}>
         <div className="px-2 lg:px-3 mb-6 lg:mb-8">
           <h1 className="text-lg lg:text-xl font-bold tracking-tight uppercase" style={{ color: 'var(--color-text)', fontFamily: 'var(--font-mono)' }}>
-            SLEEP
+            CIRCADIA
           </h1>
           <p className="text-[10px] lg:text-xs mt-1 font-mono" style={{ color: 'var(--color-text-tertiary)' }}>
-            // JOURNAL v1.0
+            // SLEEP JOURNAL v1.0
           </p>
         </div>
         <div className="flex flex-col gap-1">

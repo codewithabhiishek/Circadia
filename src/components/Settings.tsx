@@ -231,10 +231,10 @@ export default function Settings({ onRefresh }: SettingsProps) {
       <motion.section className="pt-6" variants={itemVariants}>
         <div className="text-center space-y-2 border-t-2 pt-6" style={{ borderColor: 'var(--color-border-light)' }}>
           <p className="text-xs font-bold uppercase" style={{ color: 'var(--color-text-tertiary)', fontFamily: 'var(--font-mono)' }}>
-            SLEEP JOURNAL
+            CIRCADIA
           </p>
           <p className="text-xs font-mono" style={{ color: 'var(--color-text-tertiary)' }}>
-            // A PRIVATE, PERSONAL SLEEP TRACKER
+            // PRIVATE CIRCADIAN SLEEP JOURNAL
           </p>
           <p className="text-xs font-mono" style={{ color: 'var(--color-text-tertiary)' }}>
             V1.0 · LOCAL-FIRST · NO TRACKING

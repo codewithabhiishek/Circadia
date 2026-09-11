@@ -47,7 +47,7 @@ export default function PremiumLoading() {
             animate={{ opacity: [1, 0.5, 1] }}
             transition={{ duration: 1.5, repeat: Infinity }}
           >
-            SLEEP JOURNAL
+            CIRCADIA
           </motion.div>
           <motion.div
             className="text-xs font-mono"

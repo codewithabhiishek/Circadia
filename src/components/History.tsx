@@ -141,26 +141,28 @@ export default function History({ entries, onSave, onDelete, onRefresh }: Histor
       </motion.div>
 
       {/* Day selector */}
-      <motion.div className="flex items-center justify-between border-2 p-3" variants={itemVariants}
+      <motion.div className="flex items-center justify-between border-2 p-2 sm:p-3" variants={itemVariants}
         style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-bg-card)', boxShadow: 'var(--shadow-card)' }}>
         <motion.button
           onClick={() => setCurrentDate(subDays(currentDate, 1))}
-          className="p-2 border-2 transition-all duration-200"
+          className="p-1.5 sm:p-2 border-2 transition-all duration-200 shrink-0"
           style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-bg-subtle)', color: 'var(--color-text)' }}
           whileHover={{ scale: 1.1, boxShadow: '3px 3px 0 var(--color-border)' }}
           whileTap={{ scale: 0.9, boxShadow: '1px 1px 0 var(--color-border)' }}
+          aria-label="Previous day"
         >
           <ChevronLeft size={18} />
         </motion.button>
-        <span className="text-sm font-bold font-mono uppercase" style={{ color: 'var(--color-text)' }}>
-          {format(currentDate, 'EEEE, MMM d')}
+        <span className="text-xs sm:text-sm font-bold font-mono uppercase text-center px-1 truncate" style={{ color: 'var(--color-text)' }}>
+          {format(currentDate, 'EEE, MMM d, yyyy')}
         </span>
         <motion.button
           onClick={() => setCurrentDate(addDays(currentDate, 1))}
-          className="p-2 border-2 transition-all duration-200"
+          className="p-1.5 sm:p-2 border-2 transition-all duration-200 shrink-0"
           style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-bg-subtle)', color: 'var(--color-text)' }}
           whileHover={{ scale: 1.1, boxShadow: '3px 3px 0 var(--color-border)' }}
           whileTap={{ scale: 0.9, boxShadow: '1px 1px 0 var(--color-border)' }}
+          aria-label="Next day"
         >
           <ChevronRight size={18} />
         </motion.button>
@@ -193,9 +195,9 @@ export default function History({ entries, onSave, onDelete, onRefresh }: Histor
               </motion.button>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-bold mb-2 uppercase" style={{ color: 'var(--color-text-secondary)', fontFamily: 'var(--font-mono)' }}>
+                <label className="block text-[10px] sm:text-xs font-bold mb-1.5 sm:mb-2 uppercase" style={{ color: 'var(--color-text-secondary)', fontFamily: 'var(--font-mono)' }}>
                   Fell asleep
                 </label>
                 <input
@@ -203,13 +205,13 @@ export default function History({ entries, onSave, onDelete, onRefresh }: Histor
                   value={`${editSleepHour}:${editSleepMinute}`}
                   onChange={(e) => {
                     const [h, m] = e.target.value.split(':');
-                    setEditSleepHour(h);
-                    setEditSleepMinute(m);
+                    setEditSleepHour(h || '');
+                    setEditSleepMinute(m || '');
                   }}
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold mb-2 uppercase" style={{ color: 'var(--color-text-secondary)', fontFamily: 'var(--font-mono)' }}>
+                <label className="block text-[10px] sm:text-xs font-bold mb-1.5 sm:mb-2 uppercase" style={{ color: 'var(--color-text-secondary)', fontFamily: 'var(--font-mono)' }}>
                   Woke up
                 </label>
                 <input
@@ -217,8 +219,8 @@ export default function History({ entries, onSave, onDelete, onRefresh }: Histor
                   value={`${editWakeHour}:${editWakeMinute}`}
                   onChange={(e) => {
                     const [h, m] = e.target.value.split(':');
-                    setEditWakeHour(h);
-                    setEditWakeMinute(m);
+                    setEditWakeHour(h || '');
+                    setEditWakeMinute(m || '');
                   }}
                 />
               </div>
@@ -254,24 +256,26 @@ export default function History({ entries, onSave, onDelete, onRefresh }: Histor
                   </motion.div>
                 ))}
               </AnimatePresence>
-              <div className="flex gap-2 mt-3">
-                <input
-                  type="time"
-                  value={editNapStart}
-                  onChange={(e) => setEditNapStart(e.target.value)}
-                  className="text-xs"
-                  style={{ fontSize: '0.8rem' }}
-                />
-                <input
-                  type="time"
-                  value={editNapEnd}
-                  onChange={(e) => setEditNapEnd(e.target.value)}
-                  className="text-xs"
-                  style={{ fontSize: '0.8rem' }}
-                />
+              <div className="flex flex-col sm:flex-row gap-2 mt-3">
+                <div className="flex gap-2 flex-1">
+                  <input
+                    type="time"
+                    value={editNapStart}
+                    onChange={(e) => setEditNapStart(e.target.value)}
+                    className="text-xs flex-1"
+                    style={{ fontSize: '0.85rem' }}
+                  />
+                  <input
+                    type="time"
+                    value={editNapEnd}
+                    onChange={(e) => setEditNapEnd(e.target.value)}
+                    className="text-xs flex-1"
+                    style={{ fontSize: '0.85rem' }}
+                  />
+                </div>
                 <motion.button
                   onClick={addEditNap}
-                  className="px-3 py-2 text-xs font-bold border-2 uppercase"
+                  className="px-4 py-2.5 text-xs font-bold border-2 uppercase shrink-0"
                   style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-neon-tertiary)', color: '#000', fontFamily: 'var(--font-mono)' }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}

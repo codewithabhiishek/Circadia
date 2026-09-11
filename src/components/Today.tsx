@@ -213,36 +213,38 @@ export default function Today({ entry, onSave }: TodayProps) {
           whileHover={{ boxShadow: '6px 6px 0 var(--color-border)' }}
           transition={{ duration: 0.2 }}
         >
-          <div>
-            <label className="block text-[10px] sm:text-xs font-bold mb-1.5 sm:mb-2 uppercase" style={{ color: 'var(--color-text-secondary)', fontFamily: 'var(--font-mono)' }}>
-              Fell asleep
-            </label>
-            <input
-              type="time"
-              value={sleepHour && sleepMinute ? `${sleepHour}:${sleepMinute}` : ''}
-              onChange={(e) => {
-                const [h, m] = e.target.value.split(':');
-                setSleepHour(h);
-                setSleepMinute(m);
-              }}
-              placeholder="--:--"
-            />
-          </div>
-          
-          <div>
-            <label className="block text-[10px] sm:text-xs font-bold mb-1.5 sm:mb-2 uppercase" style={{ color: 'var(--color-text-secondary)', fontFamily: 'var(--font-mono)' }}>
-              Woke up
-            </label>
-            <input
-              type="time"
-              value={wakeHour && wakeMinute ? `${wakeHour}:${wakeMinute}` : ''}
-              onChange={(e) => {
-                const [h, m] = e.target.value.split(':');
-                setWakeHour(h);
-                setWakeMinute(m);
-              }}
-              placeholder="--:--"
-            />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+            <div>
+              <label className="block text-[10px] sm:text-xs font-bold mb-1.5 sm:mb-2 uppercase" style={{ color: 'var(--color-text-secondary)', fontFamily: 'var(--font-mono)' }}>
+                Fell asleep
+              </label>
+              <input
+                type="time"
+                value={sleepHour && sleepMinute ? `${sleepHour}:${sleepMinute}` : ''}
+                onChange={(e) => {
+                  const [h, m] = e.target.value.split(':');
+                  setSleepHour(h || '');
+                  setSleepMinute(m || '');
+                }}
+                placeholder="--:--"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-[10px] sm:text-xs font-bold mb-1.5 sm:mb-2 uppercase" style={{ color: 'var(--color-text-secondary)', fontFamily: 'var(--font-mono)' }}>
+                Woke up
+              </label>
+              <input
+                type="time"
+                value={wakeHour && wakeMinute ? `${wakeHour}:${wakeMinute}` : ''}
+                onChange={(e) => {
+                  const [h, m] = e.target.value.split(':');
+                  setWakeHour(h || '');
+                  setWakeMinute(m || '');
+                }}
+                placeholder="--:--"
+              />
+            </div>
           </div>
 
           <AnimatePresence>

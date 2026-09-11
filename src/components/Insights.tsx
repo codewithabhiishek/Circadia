@@ -142,19 +142,19 @@ export default function Insights({ entries }: InsightsProps) {
       </motion.div>
 
       {/* Time range selector */}
-      <motion.div className="flex gap-2 p-2 border-2 w-fit" variants={itemVariants}
+      <motion.div className="flex flex-wrap gap-1.5 sm:gap-2 p-1.5 sm:p-2 border-2 w-fit max-w-full" variants={itemVariants}
         style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-bg-card)', boxShadow: 'var(--shadow-card)' }}>
         {([7, 14, 30, 90] as TimeRange[]).map(range => (
           <motion.button
             key={range}
             onClick={() => setTimeRange(range)}
-            className="px-4 py-2 text-xs font-bold border-2 uppercase transition-all duration-200"
+            className="px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-xs font-bold border-2 uppercase transition-all duration-200"
             style={{
               borderColor: timeRange === range ? 'var(--color-neon-primary)' : 'transparent',
               backgroundColor: timeRange === range ? 'var(--color-neon-primary)' : 'transparent',
               color: timeRange === range ? '#000' : 'var(--color-text-tertiary)',
               fontFamily: 'var(--font-mono)',
-              boxShadow: timeRange === range ? '3px 3px 0 var(--color-border)' : 'none',
+              boxShadow: timeRange === range ? '2px 2px 0 var(--color-border)' : 'none',
             }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

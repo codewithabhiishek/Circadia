@@ -11,6 +11,7 @@ import Insights from './components/Insights';
 import Settings from './components/Settings';
 import BackgroundOrbs from './components/BackgroundOrbs';
 import PremiumLoading from './components/PremiumLoading';
+import { Analytics } from '@vercel/analytics/react';
 
 export default function App() {
   const [page, setPage] = useState<Page>('today');
@@ -89,6 +90,7 @@ export default function App() {
           </main>
           <Navigation page={page} setPage={setPage} layout="bottom" />
         </div>
+        <Analytics />
       </div>
     </ThemeProvider>
   );

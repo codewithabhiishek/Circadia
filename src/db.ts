@@ -55,7 +55,26 @@ export async function exportData(): Promise<string> {
 }
 
 export async function importData(json: string): Promise<number> {
-  const entries: SleepEntry[] = JSON.parse(json);
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(json);
+  } catch {
+    throw new Error('File is not valid JSON.');
+  }
+  if (!Array.isArray(parsed)) {
+    throw new Error('File does not contain an array of entries.');
+  }
+
+  const entries = parsed.filter(
+    (e): e is SleepEntry =>
+      !!e &&
+      typeof e === 'object' &&
+      typeof (e as SleepEntry).id === 'string' &&
+      typeof (e as SleepEntry).date === 'string' &&
+      typeof (e as SleepEntry).sleepStart === 'string' &&
+      typeof (e as SleepEntry).sleepEnd === 'string'
+  );
+
   const db = await getDB();
   const tx = db.transaction(STORE_NAME, 'readwrite');
   let count = 0;

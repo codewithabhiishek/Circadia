@@ -81,6 +81,10 @@ export default function Today({ entry, onSave }: TodayProps) {
       
       if (date <= sleepDate && sleepHour) {
         date.setDate(date.getDate() + 1);
+        // Guard against DST shifting the wake time (e.g. 07:00 -> 06:00 or 08:00)
+        if (date.getHours() !== h || date.getMinutes() !== m) {
+          date.setHours(h, m, 0, 0);
+        }
       }
     }
     
@@ -242,7 +246,7 @@ export default function Today({ entry, onSave }: TodayProps) {
                   className="cursor-pointer"
                 />
                 {!sleepHour && !sleepMinute && (
-                  <div className="absolute inset-0 pointer-events-none flex items-center justify-between px-3 text-xs font-mono font-bold" style={{ color: 'var(--color-text-tertiary)' }}>
+                  <div className="sm:hidden absolute inset-0 pointer-events-none flex items-center justify-between px-3 text-xs font-mono font-bold" style={{ color: 'var(--color-text-tertiary)' }}>
                     <span className="flex items-center gap-1.5">
                       <Clock size={14} style={{ color: 'var(--color-neon-primary)' }} />
                       --:-- (e.g. 11:30 PM)
@@ -275,7 +279,7 @@ export default function Today({ entry, onSave }: TodayProps) {
                   className="cursor-pointer"
                 />
                 {!wakeHour && !wakeMinute && (
-                  <div className="absolute inset-0 pointer-events-none flex items-center justify-between px-3 text-xs font-mono font-bold" style={{ color: 'var(--color-text-tertiary)' }}>
+                  <div className="sm:hidden absolute inset-0 pointer-events-none flex items-center justify-between px-3 text-xs font-mono font-bold" style={{ color: 'var(--color-text-tertiary)' }}>
                     <span className="flex items-center gap-1.5">
                       <Clock size={14} style={{ color: 'var(--color-neon-tertiary)' }} />
                       --:-- (e.g. 07:30 AM)

@@ -1,6 +1,13 @@
 import { format, parseISO, differenceInMinutes, addDays, startOfDay } from 'date-fns';
 import { Nap } from './types';
 
+const MS_PER_DAY = 24 * 60 * 60 * 1000;
+
+export function addDaysToDate(date: Date, days: number): Date {
+  // Use timestamp arithmetic so DST transitions don't shift the result
+  return new Date(date.getTime() + days * MS_PER_DAY);
+}
+
 export function calculateDuration(start: string, end: string): number {
   // Returns duration in minutes
   const startDate = parseISO(start);
@@ -68,6 +75,12 @@ export function buildWakeISO(dateStr: string, hours: number, minutes: number, sl
   
   if (wakeDate <= sleepDate) {
     wakeDate.setDate(wakeDate.getDate() + 1);
+    // Guard against DST shifting the wake time (e.g. 07:00 -> 06:00 or 08:00)
+    if (wakeDate.getHours() !== hours || wakeDate.getMinutes() !== minutes) {
+      const corrected = new Date(wakeDate);
+      corrected.setHours(hours, minutes, 0, 0);
+      return corrected.toISOString();
+    }
   }
   
   return wakeDate.toISOString();

@@ -77,6 +77,10 @@ export default function History({ entries, onSave, onDelete, onRefresh }: Histor
     // Cross-midnight detection: if wake time is at or before sleep time, wake happened next day
     if (wakeDate <= sleepDate) {
       wakeDate.setDate(wakeDate.getDate() + 1);
+      // Guard against DST shifting the wake time (e.g. 07:00 -> 06:00 or 08:00)
+      if (wakeDate.getHours() !== wakeHourNum || wakeDate.getMinutes() !== wakeMinuteNum) {
+        wakeDate.setHours(wakeHourNum, wakeMinuteNum, 0, 0);
+      }
     }
 
     const updated: SleepEntry = {
@@ -224,7 +228,7 @@ export default function History({ entries, onSave, onDelete, onRefresh }: Histor
                     className="cursor-pointer"
                   />
                   {!editSleepHour && !editSleepMinute && (
-                    <div className="absolute inset-0 pointer-events-none flex items-center justify-between px-3 text-xs font-mono font-bold" style={{ color: 'var(--color-text-tertiary)' }}>
+                    <div className="sm:hidden absolute inset-0 pointer-events-none flex items-center justify-between px-3 text-xs font-mono font-bold" style={{ color: 'var(--color-text-tertiary)' }}>
                       <span className="flex items-center gap-1.5">
                         <Clock size={14} style={{ color: 'var(--color-neon-primary)' }} />
                         --:--
@@ -256,7 +260,7 @@ export default function History({ entries, onSave, onDelete, onRefresh }: Histor
                     className="cursor-pointer"
                   />
                   {!editWakeHour && !editWakeMinute && (
-                    <div className="absolute inset-0 pointer-events-none flex items-center justify-between px-3 text-xs font-mono font-bold" style={{ color: 'var(--color-text-tertiary)' }}>
+                    <div className="sm:hidden absolute inset-0 pointer-events-none flex items-center justify-between px-3 text-xs font-mono font-bold" style={{ color: 'var(--color-text-tertiary)' }}>
                       <span className="flex items-center gap-1.5">
                         <Clock size={14} style={{ color: 'var(--color-neon-tertiary)' }} />
                         --:--
